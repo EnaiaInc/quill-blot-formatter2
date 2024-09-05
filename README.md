@@ -1,3 +1,11 @@
+# Mod
+
+This is a clone of https://github.com/enzedonline/quill-blot-formatter2
+
+It has been changed to reuse the UI for the alignment / title to instead change the size of the image to one of small / medium / large / original.
+
+Below is the original README.
+
 # Quill Blot Formatter 2 (quill-blot-formatter2)
 
 An update of [quill](https://quilljs.com/) module [quill-blot-formatter](https://github.com/Fandom-OSS/quill-blot-formatter) to make alignments compatible with Quill V2. Out of the box supports resizing and realigning images and iframe videos, but can be easily extended using [`BlotSpec`](#blotspec) and [`Action`](#action).
