@@ -3,7 +3,7 @@ import Action from "./Action"
 import BlotFormatter from "../BlotFormatter"
 import type { Blot } from "../specs/BlotSpec"
 import { ImageResize } from "./resize/ResizeFormats"
-
+import { modalCancelManager } from "../../../hooks/modal_cancel_hook"
 export default class AttributeAction extends Action {
   label: string
 
@@ -54,6 +54,7 @@ export default class AttributeAction extends Action {
       const altInput = elements.namedItem("alt") as HTMLTextAreaElement
       const titleInput = elements.namedItem("title") as HTMLTextAreaElement
       const closeModal = () => {
+        modalCancelManager.unregister({ el: cancelButton })
         modal.remove()
       }
       altInput.value = targetElement?.getAttribute("alt") || ""
@@ -70,6 +71,7 @@ export default class AttributeAction extends Action {
         }
       })
       cancelButton?.addEventListener("click", closeModal)
+      modalCancelManager.register({ el: cancelButton })
     }
   }
 
@@ -93,7 +95,9 @@ export default class AttributeAction extends Action {
                         <button type="submit" style="margin-top: 5px; font-size: x-large; text-decoration: none; font-weight:bold; color: green; cursor: pointer; background: none; border: 0; padding: 0;">✓</button>
                     </div>
                 </form>
-                <button id="${uuid}-cancel" type="cancel" style="position: absolute; top: -0.5em; right: -0.5em; padding: 0 2px 2px 2px; background: white; border: 1px solid gray; border-radius: 5px; color: red; cursor: pointer;">🗙</button>
+                <button id="${uuid}-cancel" type="cancel" style="position: absolute; top: -0.5em; right: -0.5em; padding: 0 2px 2px 2px; background: white; border: 1px solid gray; border-radius: 5px; color: red; cursor: pointer;">
+                    ✕
+                </button>
             </div>
         </div>
         `
