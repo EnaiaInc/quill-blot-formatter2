@@ -2,7 +2,7 @@ import Quill from "quill"
 import Action from "./Action"
 import BlotFormatter from "../BlotFormatter"
 import type { Blot } from "../specs/BlotSpec"
-import { ImageResize } from "./align/AlignFormats"
+import { ImageResize } from "./resize/ResizeFormats"
 
 export default class AttributeAction extends Action {
   icon: string

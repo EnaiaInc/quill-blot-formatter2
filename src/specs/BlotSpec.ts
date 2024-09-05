@@ -1,6 +1,6 @@
 import BlotFormatter from "../BlotFormatter"
 import Action from "../actions/Action"
-import ResizeAction from "../actions/align/AlignAction"
+import ResizeAction from "../actions/resize/ResizeAction"
 import DeleteAction from "../actions/DeleteAction"
 
 export interface Blot {
