@@ -5,11 +5,11 @@ import type { Blot } from "../specs/BlotSpec"
 import { ImageResize } from "./resize/ResizeFormats"
 
 export default class AttributeAction extends Action {
-  icon: string
+  label: string
 
   constructor(formatter: BlotFormatter) {
     super(formatter)
-    this.icon = this.formatter.options.resize.icons.attribute
+    this.label = this.formatter.options.resize.labels.attribute
   }
 
   setAltTitle(alt: string, title: string): void {

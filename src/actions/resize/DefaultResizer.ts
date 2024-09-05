@@ -19,21 +19,21 @@ export default class DefaultResizer implements Resizer {
     this.sizes = {
       [SMALL_SIZE]: {
         name: SMALL_SIZE,
-        icon: options.icons.small,
+        label: options.labels.small,
         apply: (blot: Blot | null) => {
           this.setSize(blot, SMALL_SIZE)
         },
       },
       [BEST_FIT_SIZE]: {
         name: BEST_FIT_SIZE,
-        icon: options.icons.best_fit,
+        label: options.labels.best_fit,
         apply: (blot: Blot | null) => {
           this.setSize(blot, BEST_FIT_SIZE)
         },
       },
       [ORIGINAL_SIZE]: {
         name: ORIGINAL_SIZE,
-        icon: options.icons.original,
+        label: options.labels.original,
         apply: (blot: Blot | null) => {
           this.setSize(blot, ORIGINAL_SIZE)
         },

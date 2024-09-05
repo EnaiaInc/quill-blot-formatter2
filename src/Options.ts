@@ -15,8 +15,8 @@ export type OverlayOptions = {
 export type ResizeOptions = {
   // the name of the attribute for an element that has its size changed
   attribute: string
-  // icons used for size
-  icons: {
+  // labels used for size
+  labels: {
     small: string
     best_fit: string
     original: string
@@ -37,8 +37,8 @@ export type ResizeOptions = {
     addButtonSelectStyle: boolean
     // style applied to buttons, or null to prevent styles
     buttonStyle?: { [key: string]: any } | null | undefined
-    // style applied to the svgs in the buttons
-    svgStyle?: { [key: string]: any } | null | undefined
+    // style applied to the buttonChilds in the buttons
+    buttonChildStyle?: { [key: string]: any } | null | undefined
   }
 }
 
@@ -70,33 +70,11 @@ const DefaultOptions: Options = {
   },
   resize: {
     attribute: "data-resize",
-    icons: {
-      small: `
-        <svg viewbox="0 0 18 18">
-          <line class="ql-stroke" x1="3" x2="15" y1="9" y2="9"></line>
-          <line class="ql-stroke" x1="3" x2="13" y1="14" y2="14"></line>
-          <line class="ql-stroke" x1="3" x2="9" y1="4" y2="4"></line>
-        </svg>
-      `,
-      best_fit: `
-        <svg viewbox="0 0 18 18">
-          <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
-          <line class="ql-stroke" x1="14" x2="4" y1="14" y2="14"></line>
-          <line class="ql-stroke" x1="12" x2="6" y1="4" y2="4"></line>
-        </svg>
-      `,
-      original: `
-        <svg viewbox="0 0 18 18">
-          <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
-          <line class="ql-stroke" x1="15" x2="5" y1="14" y2="14"></line>
-          <line class="ql-stroke" x1="15" x2="9" y1="4" y2="4"></line>
-        </svg>
-      `,
-      attribute: `
-        <svg viewBox="0 0 24 24" fill="none" class="ql-stroke">
-          <path id="Vector" d="M10 19H12M12 19H14M12 19V5M12 5H6V6M12 5H18V6" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      `,
+    labels: {
+      small: "Small",
+      best_fit: "Best fit",
+      original: "Original",
+      attribute: "Edit alt text",
     },
     toolbar: {
       allowDeselect: true,
@@ -125,7 +103,7 @@ const DefaultOptions: Options = {
         verticalAlign: "middle",
         cursor: "pointer",
       },
-      svgStyle: {
+      buttonChildStyle: {
         display: "inline-block",
         height: "24px",
         background: "white",
