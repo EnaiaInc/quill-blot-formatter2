@@ -4,11 +4,6 @@ const Delta = Quill.import("delta")
 const parchment = Quill.import("parchment") as any
 const { ClassAttributor, Scope } = parchment
 
-const IframeAlign = new ClassAttributor("iframeAlign", "ql-iframe-align", {
-  scope: Scope.BLOCK,
-  whitelist: ["left", "center", "right"],
-})
-
 interface ImageAlignValue {
   align: string
   title: string
@@ -49,10 +44,8 @@ Quill.register(
   {
     "formats/imageAlign": ImageAlign,
     "attributors/class/imageAlign": ImageAlign,
-    "formats/iframeAlign": IframeAlign,
-    "attributors/class/iframeAlign": IframeAlign,
   },
   true,
 )
 
-export { IframeAlign, ImageAlign }
+export { ImageAlign }

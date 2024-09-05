@@ -1,6 +1,5 @@
 import BlotSpec from "./specs/BlotSpec"
 import ImageSpec from "./specs/ImageSpec"
-import IframeVideoSpec from "./specs/IframeVideoSpec"
 
 type Constructor<T> = new (...args: any[]) => T
 
@@ -64,7 +63,7 @@ export type Options = {
 }
 
 const DefaultOptions: Options = {
-  specs: [ImageSpec, IframeVideoSpec],
+  specs: [ImageSpec],
   overlay: {
     className: "blot-formatter__overlay",
     style: {

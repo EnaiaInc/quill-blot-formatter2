@@ -3,7 +3,7 @@ import { Aligner } from "./Aligner"
 import type { Alignment } from "./Alignment"
 import type { Blot } from "../../specs/BlotSpec"
 import type { AlignOptions } from "../../Options"
-import { ImageAlign, IframeAlign } from "./AlignFormats"
+import { ImageAlign } from "./AlignFormats"
 
 const parchment = Quill.import("parchment") as any
 const { Scope } = parchment
@@ -51,8 +51,6 @@ export default class DefaultAligner implements Aligner {
         if (blot.parent !== null && blot.parent.domNode.tagName === "SPAN") {
           blot.parent.format(ImageAlign.attrName, false)
         }
-      } else if (blot.domNode.tagName === "IFRAME") {
-        blot.format(IframeAlign.attrName, false)
       }
     }
   }
@@ -80,11 +78,6 @@ export default class DefaultAligner implements Aligner {
         const imageAlignment =
           blot.parent?.formats()[ImageAlign.attrName]?.align
         return imageAlignment === alignment.name
-      } else if (this.isBlockBlot(blot) || this.hasBlockScope(blot)) {
-        // blot.formats() is empty for block class attributers, check classList instead
-        return blot.domNode.classList.contains(
-          `${IframeAlign.keyName}-${alignment.name}`,
-        )
       }
     }
     return false
@@ -100,8 +93,6 @@ export default class DefaultAligner implements Aligner {
             align: this.alignments[alignment].name,
             title: blot.domNode.getAttribute("title") || "",
           })
-        } else if (this.isBlockBlot(blot) || this.hasBlockScope(blot)) {
-          blot.format(IframeAlign.attrName, this.alignments[alignment].name)
         }
       }
     }
