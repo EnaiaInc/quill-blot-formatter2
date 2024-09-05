@@ -97,19 +97,14 @@ const DefaultOptions: Options = {
       addButtonSelectStyle: true,
       buttonStyle: {
         display: "inline-block",
-        height: "24px",
+        height: "18px",
+        padding: "0.25rem",
         background: "white",
-        border: "1px solid #999",
+        border: "1px solid #ccc",
         verticalAlign: "middle",
         cursor: "pointer",
       },
-      buttonChildStyle: {
-        display: "inline-block",
-        height: "24px",
-        background: "white",
-        border: "1px solid #999",
-        verticalAlign: "middle",
-      },
+      buttonChildStyle: {},
     },
   },
   image: {
