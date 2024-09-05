@@ -4,8 +4,8 @@ export { default } from "./BlotFormatter"
 
 // actions
 export { default as Action } from "./actions/Action"
-export { default as AlignAction } from "./actions/align/AlignAction"
-export { default as DefaultAligner } from "./actions/align/DefaultAligner"
+export { default as ResizeAction } from "./actions/align/AlignAction"
+export { default as DefaultResizer } from "./actions/align/DefaultResizer"
 export { default as DefaultToolbar } from "./actions/align/DefaultToolbar"
 export { default as DeleteAction } from "./actions/DeleteAction"
 

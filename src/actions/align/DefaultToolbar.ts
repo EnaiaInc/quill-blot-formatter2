@@ -1,7 +1,7 @@
 import Quill from "quill"
 import { Toolbar } from "./Toolbar"
-import { Aligner } from "./Aligner"
-import type { Alignment } from "./Alignment"
+import { Resizer } from "./Align"
+import type { Size } from "./Alignment"
 import BlotFormatter from "../../BlotFormatter"
 import type { Blot } from "../../specs/BlotSpec"
 import AttributeAction from "../AttributeAction"
@@ -15,11 +15,11 @@ export default class DefaultToolbar implements Toolbar {
     this.buttons = []
   }
 
-  create(formatter: BlotFormatter, aligner: Aligner): HTMLElement {
+  create(formatter: BlotFormatter, resizer: Resizer): HTMLElement {
     const toolbar = document.createElement("div")
-    toolbar.classList.add(formatter.options.align.toolbar.mainClassName)
+    toolbar.classList.add(formatter.options.resize.toolbar.mainClassName)
     this.addToolbarStyle(formatter, toolbar)
-    this.addButtons(formatter, toolbar, aligner)
+    this.addButtons(formatter, toolbar, resizer)
 
     this.toolbar = toolbar
     return this.toolbar
@@ -35,56 +35,56 @@ export default class DefaultToolbar implements Toolbar {
   }
 
   addToolbarStyle(formatter: BlotFormatter, toolbar: HTMLElement) {
-    if (formatter.options.align.toolbar.mainStyle) {
-      Object.assign(toolbar.style, formatter.options.align.toolbar.mainStyle)
+    if (formatter.options.resize.toolbar.mainStyle) {
+      Object.assign(toolbar.style, formatter.options.resize.toolbar.mainStyle)
     }
   }
 
   addButtonStyle(button: HTMLElement, index: number, formatter: BlotFormatter) {
-    if (formatter.options.align.toolbar.buttonStyle) {
-      Object.assign(button.style, formatter.options.align.toolbar.buttonStyle)
+    if (formatter.options.resize.toolbar.buttonStyle) {
+      Object.assign(button.style, formatter.options.resize.toolbar.buttonStyle)
       if (index > 0) {
         button.style.borderLeftWidth = "0" // eslint-disable-line no-param-reassign
       }
     }
 
-    if (formatter.options.align.toolbar.svgStyle) {
+    if (formatter.options.resize.toolbar.svgStyle) {
       const childElement = button.children[0] as HTMLElement // Type assertion
       if (childElement) {
         Object.assign(
           childElement.style,
-          formatter.options.align.toolbar.svgStyle,
+          formatter.options.resize.toolbar.svgStyle,
         )
       }
     }
   }
 
-  addButtons(formatter: BlotFormatter, toolbar: HTMLElement, aligner: Aligner) {
-    let align_counter: number = 0
-    aligner.getAlignments().forEach((alignment, i) => {
+  addButtons(formatter: BlotFormatter, toolbar: HTMLElement, resizer: Resizer) {
+    let resize_counter: number = 0
+    resizer.getSizes().forEach((size, i) => {
       const button = document.createElement("span")
-      button.classList.add(formatter.options.align.toolbar.buttonClassName)
-      button.innerHTML = alignment.icon
+      button.classList.add(formatter.options.resize.toolbar.buttonClassName)
+      button.innerHTML = size.icon
       button.addEventListener("click", () => {
-        this.onButtonClick(button, formatter, alignment, aligner)
+        this.onButtonClick(button, formatter, size, resizer)
       })
-      this.preselectButton(button, alignment, formatter, aligner)
+      this.preselectButton(button, size, formatter, resizer)
       this.addButtonStyle(button, i, formatter)
       this.buttons.push(button)
       toolbar.appendChild(button)
-      align_counter = i
+      resize_counter = i
     })
     // Add alt/title button if target is image
     const targetElement = formatter.currentSpec?.getTargetElement()
     if (targetElement?.tagName === "IMG") {
       const attributeAction = new AttributeAction(formatter)
       const button = document.createElement("span")
-      button.classList.add(formatter.options.align.toolbar.buttonClassName)
+      button.classList.add(formatter.options.resize.toolbar.buttonClassName)
       button.innerHTML = attributeAction.icon
       button.addEventListener("click", (event) => {
         attributeAction.showAltTitleModal(event)
       })
-      this.addButtonStyle(button, ++align_counter, formatter)
+      this.addButtonStyle(button, ++resize_counter, formatter)
       this.buttons.push(button)
       toolbar.appendChild(button)
     }
@@ -92,9 +92,9 @@ export default class DefaultToolbar implements Toolbar {
 
   preselectButton(
     button: HTMLElement,
-    alignment: Alignment,
+    size: Size,
     formatter: BlotFormatter,
-    aligner: Aligner,
+    resizer: Resizer,
   ) {
     if (!formatter.currentSpec) {
       return
@@ -106,7 +106,7 @@ export default class DefaultToolbar implements Toolbar {
     }
 
     const blot = Quill.find(target) as Blot | null
-    if (aligner.isAligned(blot, alignment)) {
+    if (resizer.isResized(blot, size)) {
       this.selectButton(formatter, button)
     }
   }
@@ -114,8 +114,8 @@ export default class DefaultToolbar implements Toolbar {
   onButtonClick(
     button: HTMLElement,
     formatter: BlotFormatter,
-    alignment: Alignment,
-    aligner: Aligner,
+    size: Size,
+    resizer: Resizer,
   ) {
     if (!formatter.currentSpec) {
       return
@@ -126,29 +126,29 @@ export default class DefaultToolbar implements Toolbar {
       return
     }
 
-    this.clickButton(button, target, formatter, alignment, aligner)
+    this.clickButton(button, target, formatter, size, resizer)
   }
 
   clickButton(
     button: HTMLElement,
-    alignTarget: HTMLElement,
+    resizeTarget: HTMLElement,
     formatter: BlotFormatter,
-    alignment: Alignment,
-    aligner: Aligner,
+    size: Size,
+    resizer: Resizer,
   ) {
     this.buttons.forEach((b) => {
       this.deselectButton(formatter, b)
     })
-    const blot = Quill.find(alignTarget) as Blot | null
-    if (aligner.isAligned(blot, alignment)) {
-      if (formatter.options.align.toolbar.allowDeselect) {
-        aligner.clear(blot)
+    const blot = Quill.find(resizeTarget) as Blot | null
+    if (resizer.isResized(blot, size)) {
+      if (formatter.options.resize.toolbar.allowDeselect) {
+        resizer.clear(blot)
       } else {
         this.selectButton(formatter, button)
       }
     } else {
       this.selectButton(formatter, button)
-      alignment.apply(blot)
+      size.apply(blot)
     }
 
     formatter.update()
@@ -156,14 +156,14 @@ export default class DefaultToolbar implements Toolbar {
 
   selectButton(formatter: BlotFormatter, button: HTMLElement) {
     button.classList.add("is-selected")
-    if (formatter.options.align.toolbar.addButtonSelectStyle) {
+    if (formatter.options.resize.toolbar.addButtonSelectStyle) {
       button.style.setProperty("filter", "invert(20%)")
     }
   }
 
   deselectButton(formatter: BlotFormatter, button: HTMLElement) {
     button.classList.remove("is-selected")
-    if (formatter.options.align.toolbar.addButtonSelectStyle) {
+    if (formatter.options.resize.toolbar.addButtonSelectStyle) {
       button.style.removeProperty("filter")
     }
   }

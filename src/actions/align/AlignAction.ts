@@ -1,22 +1,22 @@
 import Action from "../Action"
 import BlotFormatter from "../../BlotFormatter"
-import DefaultAligner from "./DefaultAligner"
-import { Aligner } from "./Aligner"
+import DefaultResizer from "./DefaultResizer"
+import { Resizer } from "./Align"
 import { Toolbar } from "./Toolbar"
 import DefaultToolbar from "./DefaultToolbar"
 
-export default class AlignAction extends Action {
+export default class ResizeAction extends Action {
   toolbar: Toolbar
-  aligner: Aligner
+  resizer: Resizer
 
   constructor(formatter: BlotFormatter) {
     super(formatter)
-    this.aligner = new DefaultAligner(formatter.options.align)
+    this.resizer = new DefaultResizer(formatter.options.resize)
     this.toolbar = new DefaultToolbar()
   }
 
   onCreate() {
-    const toolbar = this.toolbar.create(this.formatter, this.aligner)
+    const toolbar = this.toolbar.create(this.formatter, this.resizer)
     this.formatter.overlay.appendChild(toolbar)
   }
 

@@ -4,22 +4,22 @@ const Delta = Quill.import("delta")
 const parchment = Quill.import("parchment") as any
 const { ClassAttributor, Scope } = parchment
 
-interface ImageAlignValue {
-  align: string
+interface ImageResizeValue {
+  resize: string
   title: string
 }
 
-class ImageAlignAttributor extends ClassAttributor {
+class ImageResizeAttributor extends ClassAttributor {
   constructor() {
-    super("imageAlign", "ql-image-align", {
+    super("imageResize", "ql-image-resize", {
       scope: Scope.INLINE,
       whitelist: ["left", "center", "right"],
     })
   }
 
-  add(node: Element, value: ImageAlignValue): boolean {
+  add(node: Element, value: ImageResizeValue): boolean {
     if (typeof value === "object") {
-      super.add(node, value.align)
+      super.add(node, value.resize)
       node.setAttribute("data-title", value.title)
       return true
     } else {
@@ -27,25 +27,25 @@ class ImageAlignAttributor extends ClassAttributor {
     }
   }
 
-  value(node: Element): ImageAlignValue {
+  value(node: Element): ImageResizeValue {
     const className = super.value(node)
     const title = node.getAttribute("data-title") || ""
     return {
-      align: className,
+      resize: className,
       title: title,
     }
   }
 }
 
-const ImageAlign = new ImageAlignAttributor()
+const ImageResize = new ImageResizeAttributor()
 
-// Register the custom align formats with Quill
+// Register the custom resize formats with Quill
 Quill.register(
   {
-    "formats/imageAlign": ImageAlign,
-    "attributors/class/imageAlign": ImageAlign,
+    "formats/imageResize": ImageResize,
+    "attributors/class/imageResize": ImageResize,
   },
   true,
 )
 
-export { ImageAlign }
+export { ImageResize }

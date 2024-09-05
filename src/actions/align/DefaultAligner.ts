@@ -1,9 +1,9 @@
 import Quill from "quill"
-import { Aligner } from "./Aligner"
-import type { Alignment } from "./Alignment"
+import { Resizer } from "./Align"
+import type { Size } from "./Alignment"
 import type { Blot } from "../../specs/BlotSpec"
-import type { AlignOptions } from "../../Options"
-import { ImageAlign } from "./AlignFormats"
+import type { ResizeOptions } from "../../Options"
+import { ImageResize } from "./AlignFormats"
 
 const parchment = Quill.import("parchment") as any
 const { Scope } = parchment
@@ -12,44 +12,44 @@ const LEFT_ALIGN: string = "left"
 const CENTER_ALIGN: string = "center"
 const RIGHT_ALIGN: string = "right"
 
-export default class DefaultAligner implements Aligner {
-  alignments: { [key: string]: Alignment }
+export default class DefaultResizer implements Resizer {
+  sizes: { [key: string]: Size }
 
-  constructor(options: AlignOptions) {
-    this.alignments = {
+  constructor(options: ResizeOptions) {
+    this.sizes = {
       [LEFT_ALIGN]: {
         name: LEFT_ALIGN,
         icon: options.icons.left,
         apply: (blot: Blot | null) => {
-          this.setAlignment(blot, LEFT_ALIGN)
+          this.setSize(blot, LEFT_ALIGN)
         },
       },
       [CENTER_ALIGN]: {
         name: CENTER_ALIGN,
         icon: options.icons.center,
         apply: (blot: Blot | null) => {
-          this.setAlignment(blot, CENTER_ALIGN)
+          this.setSize(blot, CENTER_ALIGN)
         },
       },
       [RIGHT_ALIGN]: {
         name: RIGHT_ALIGN,
         icon: options.icons.right,
         apply: (blot: Blot | null) => {
-          this.setAlignment(blot, RIGHT_ALIGN)
+          this.setSize(blot, RIGHT_ALIGN)
         },
       },
     }
   }
 
-  getAlignments(): Alignment[] {
-    return Object.keys(this.alignments).map((k) => this.alignments[k])
+  getSizes(): Size[] {
+    return Object.keys(this.sizes).map((k) => this.sizes[k])
   }
 
   clear(blot: Blot | null): void {
     if (blot != null) {
       if (blot.domNode.tagName === "IMG") {
         if (blot.parent !== null && blot.parent.domNode.tagName === "SPAN") {
-          blot.parent.format(ImageAlign.attrName, false)
+          blot.parent.format(ImageResize.attrName, false)
         }
       }
     }
@@ -71,26 +71,25 @@ export default class DefaultAligner implements Aligner {
     return (blot.statics.scope & Scope.BLOCK) === Scope.BLOCK
   }
 
-  isAligned(blot: Blot | null, alignment: Alignment): boolean {
+  isResized(blot: Blot | null, size: Size): boolean {
     if (blot != null) {
       if (this.isInlineBlot(blot) || this.hasInlineScope(blot)) {
         // .formats() only returns value on parent for inline class attributers
-        const imageAlignment =
-          blot.parent?.formats()[ImageAlign.attrName]?.align
-        return imageAlignment === alignment.name
+        const imageSize = blot.parent?.formats()[ImageResize.attrName]?.resize
+        return imageSize === size.name
       }
     }
     return false
   }
 
-  setAlignment(blot: Blot | null, alignment: string) {
+  setSize(blot: Blot | null, size: string) {
     if (blot != null) {
-      const hasAlignment = this.isAligned(blot, this.alignments[alignment])
+      const hasSize = this.isResized(blot, this.sizes[size])
       this.clear(blot)
-      if (!hasAlignment) {
+      if (!hasSize) {
         if (this.isInlineBlot(blot) || this.hasInlineScope(blot)) {
-          blot.format(ImageAlign.attrName, {
-            align: this.alignments[alignment].name,
+          blot.format(ImageResize.attrName, {
+            resize: this.sizes[size].name,
             title: blot.domNode.getAttribute("title") || "",
           })
         }

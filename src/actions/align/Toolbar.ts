@@ -1,8 +1,8 @@
-import { Aligner } from "./Aligner"
+import { Resizer } from "./Align"
 import BlotFormatter from "../../BlotFormatter"
 
 export interface Toolbar {
-  create(formatter: BlotFormatter, alignmentHelper: Aligner): HTMLElement
+  create(formatter: BlotFormatter, sizeHelper: Resizer): HTMLElement
   destroy(): void
   getElement(): HTMLElement | null
 }

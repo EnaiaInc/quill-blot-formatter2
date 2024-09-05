@@ -1,30 +1,30 @@
-/* align left */
-div.ql-editor .ql-image-align-left {
+/* resize left */
+div.ql-editor .ql-image-resize-left {
   float: left;
   margin: 0.5rem 1rem 0.5rem 0;
 }
-/* align center */
-div.ql-editor .ql-image-align-center {
+/* resize center */
+div.ql-editor .ql-image-resize-center {
   margin: 0.5rem auto;
   display: block;
 }
-div.ql-editor .ql-image-align-center {
+div.ql-editor .ql-image-resize-center {
   width: -moz-fit-content;
   width: fit-content;
 }
-/* align right */
-div.ql-editor .ql-image-align-right {
+/* resize right */
+div.ql-editor .ql-image-resize-right {
   float: right;
   margin: 0.5rem 0 0.5rem 1rem;
 }
 
 /* image caption */
-div.ql-editor [class^="ql-image-align-"][data-title]:not([data-title=""]) {
+div.ql-editor [class^="ql-image-resize-"][data-title]:not([data-title=""]) {
   position: relative;
   margin-bottom: 2rem;
 }
 div.ql-editor
-  [class^="ql-image-align-"][data-title]:not([data-title=""])::after {
+  [class^="ql-image-resize-"][data-title]:not([data-title=""])::after {
   content: attr(data-title);
   display: block;
   position: absolute;
@@ -35,12 +35,12 @@ div.ql-editor
   font-size: 0.9rem;
   background-color: white;
 }
-div.ql-editor .ql-image-align-left[data-title]:not([data-title=""])::after {
-  text-align: left;
+div.ql-editor .ql-image-resize-left[data-title]:not([data-title=""])::after {
+  text-resize: left;
 }
-div.ql-editor .ql-image-align-center[data-title]:not([data-title=""])::after {
-  text-align: center;
+div.ql-editor .ql-image-resize-center[data-title]:not([data-title=""])::after {
+  text-resize: center;
 }
-div.ql-editor .ql-image-align-right[data-title]:not([data-title=""])::after {
-  text-align: right;
+div.ql-editor .ql-image-resize-right[data-title]:not([data-title=""])::after {
+  text-resize: right;
 }

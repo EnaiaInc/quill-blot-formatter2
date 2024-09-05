@@ -1,8 +1,8 @@
-import type { Alignment } from "./Alignment"
+import type { Size } from "./Alignment"
 import type { Blot } from "../../specs/BlotSpec"
 
-export interface Aligner {
-  getAlignments(): Alignment[]
-  isAligned(blot: Blot | null, alignment: Alignment): boolean
+export interface Resizer {
+  getSizes(): Size[]
+  isResized(blot: Blot | null, size: Size): boolean
   clear(blot: Blot | null): void
 }

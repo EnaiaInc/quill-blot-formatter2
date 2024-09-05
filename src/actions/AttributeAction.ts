@@ -2,14 +2,14 @@ import Quill from "quill"
 import Action from "./Action"
 import BlotFormatter from "../BlotFormatter"
 import type { Blot } from "../specs/BlotSpec"
-import { ImageAlign } from "./align/AlignFormats"
+import { ImageResize } from "./align/AlignFormats"
 
 export default class AttributeAction extends Action {
   icon: string
 
   constructor(formatter: BlotFormatter) {
     super(formatter)
-    this.icon = this.formatter.options.align.icons.attribute
+    this.icon = this.formatter.options.resize.icons.attribute
   }
 
   setAltTitle(alt: string, title: string): void {
@@ -23,11 +23,11 @@ export default class AttributeAction extends Action {
       }
       // Update format if applied
       const blot = Quill.find(targetElement) as Blot | null
-      const imageAlignment = blot?.parent?.formats()[ImageAlign.attrName]?.align
-      if (blot && imageAlignment) {
-        blot.parent?.format(ImageAlign.attrName, false)
-        blot.format(ImageAlign.attrName, {
-          align: imageAlignment,
+      const imageSize = blot?.parent?.formats()[ImageResize.attrName]?.resize
+      if (blot && imageSize) {
+        blot.parent?.format(ImageResize.attrName, false)
+        blot.format(ImageResize.attrName, {
+          resize: imageSize,
           title: title,
         })
       }
@@ -89,7 +89,7 @@ export default class AttributeAction extends Action {
                     <h6 style="color: black; margin: 0; padding-bottom: 5px !important;">${this.formatter.options.overlay.labels.title}</h6>
                     </label>
                     <textarea style="background-color: white; display: block; resize: none; width: 100%; padding: 5px;" name="title" rows="3"></textarea>
-                    <div style="text-align: right;">
+                    <div style="text-resize: right;">
                         <button type="submit" style="margin-top: 5px; font-size: x-large; text-decoration: none; font-weight:bold; color: green; cursor: pointer; background: none; border: 0; padding: 0;">✓</button>
                     </div>
                 </form>

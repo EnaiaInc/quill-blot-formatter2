@@ -12,19 +12,19 @@ export type OverlayOptions = {
   labels: { [key: string]: any }
 }
 
-export type AlignOptions = {
-  // the name of the attribute for an element that has its alignment changed
+export type ResizeOptions = {
+  // the name of the attribute for an element that has its size changed
   attribute: string
-  // icons used for alignment
+  // icons used for size
   icons: {
     left: string
     center: string
     right: string
     attribute: string
   }
-  // the toolbar so users can change alignments
+  // the toolbar so users can change sizes
   toolbar: {
-    // whether or not users can deselect an alignment. it's up to you to set the initial alignment
+    // whether or not users can deselect an size. it's up to you to set the initial size
     allowDeselect: boolean
     // class name applied to the root toolbar element
     mainClassName: string
@@ -50,7 +50,7 @@ export type Options = {
   // the BlotSpecs supported
   specs: Array<Constructor<BlotSpec>>
   overlay: OverlayOptions
-  align: AlignOptions
+  resize: ResizeOptions
   image: ImageOptions
 }
 
@@ -68,8 +68,8 @@ const DefaultOptions: Options = {
       title: "Image Title",
     },
   },
-  align: {
-    attribute: "data-align",
+  resize: {
+    attribute: "data-resize",
     icons: {
       left: `
         <svg viewbox="0 0 18 18">
