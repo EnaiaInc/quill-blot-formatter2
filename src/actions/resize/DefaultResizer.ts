@@ -8,34 +8,34 @@ import { ImageResize } from "./ResizeFormats"
 const parchment = Quill.import("parchment") as any
 const { Scope } = parchment
 
-const LEFT_ALIGN: string = "left"
-const CENTER_ALIGN: string = "center"
-const RIGHT_ALIGN: string = "right"
+const SMALL_SIZE: string = "small"
+const BEST_FIT_SIZE: string = "bestfit"
+const ORIGINAL_SIZE: string = "original"
 
 export default class DefaultResizer implements Resizer {
   sizes: { [key: string]: Size }
 
   constructor(options: ResizeOptions) {
     this.sizes = {
-      [LEFT_ALIGN]: {
-        name: LEFT_ALIGN,
-        icon: options.icons.left,
+      [SMALL_SIZE]: {
+        name: SMALL_SIZE,
+        icon: options.icons.small,
         apply: (blot: Blot | null) => {
-          this.setSize(blot, LEFT_ALIGN)
+          this.setSize(blot, SMALL_SIZE)
         },
       },
-      [CENTER_ALIGN]: {
-        name: CENTER_ALIGN,
-        icon: options.icons.center,
+      [BEST_FIT_SIZE]: {
+        name: BEST_FIT_SIZE,
+        icon: options.icons.best_fit,
         apply: (blot: Blot | null) => {
-          this.setSize(blot, CENTER_ALIGN)
+          this.setSize(blot, BEST_FIT_SIZE)
         },
       },
-      [RIGHT_ALIGN]: {
-        name: RIGHT_ALIGN,
-        icon: options.icons.right,
+      [ORIGINAL_SIZE]: {
+        name: ORIGINAL_SIZE,
+        icon: options.icons.original,
         apply: (blot: Blot | null) => {
-          this.setSize(blot, RIGHT_ALIGN)
+          this.setSize(blot, ORIGINAL_SIZE)
         },
       },
     }

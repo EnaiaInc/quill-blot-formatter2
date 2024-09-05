@@ -1,21 +1,12 @@
 /* resize left */
-div.ql-editor .ql-image-resize-left {
-  float: left;
-  margin: 0.5rem 1rem 0.5rem 0;
+div.ql-editor .ql-image-resize-small > img {
+  max-width: 216px;
 }
 /* resize center */
-div.ql-editor .ql-image-resize-center {
-  margin: 0.5rem auto;
-  display: block;
+div.ql-editor .ql-image-resize-bestfit > img {
+  max-width: 542px;
 }
-div.ql-editor .ql-image-resize-center {
-  width: -moz-fit-content;
-  width: fit-content;
-}
-/* resize right */
-div.ql-editor .ql-image-resize-right {
-  float: right;
-  margin: 0.5rem 0 0.5rem 1rem;
+div.ql-editor .ql-image-resize-original > img {
 }
 
 /* image caption */
@@ -34,13 +25,4 @@ div.ql-editor
   width: -webkit-fill-available;
   font-size: 0.9rem;
   background-color: white;
-}
-div.ql-editor .ql-image-resize-left[data-title]:not([data-title=""])::after {
-  text-resize: left;
-}
-div.ql-editor .ql-image-resize-center[data-title]:not([data-title=""])::after {
-  text-resize: center;
-}
-div.ql-editor .ql-image-resize-right[data-title]:not([data-title=""])::after {
-  text-resize: right;
 }

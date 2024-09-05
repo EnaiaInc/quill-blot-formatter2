@@ -17,9 +17,9 @@ export type ResizeOptions = {
   attribute: string
   // icons used for size
   icons: {
-    left: string
-    center: string
-    right: string
+    small: string
+    best_fit: string
+    original: string
     attribute: string
   }
   // the toolbar so users can change sizes
@@ -71,21 +71,21 @@ const DefaultOptions: Options = {
   resize: {
     attribute: "data-resize",
     icons: {
-      left: `
+      small: `
         <svg viewbox="0 0 18 18">
           <line class="ql-stroke" x1="3" x2="15" y1="9" y2="9"></line>
           <line class="ql-stroke" x1="3" x2="13" y1="14" y2="14"></line>
           <line class="ql-stroke" x1="3" x2="9" y1="4" y2="4"></line>
         </svg>
       `,
-      center: `
+      best_fit: `
         <svg viewbox="0 0 18 18">
           <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
           <line class="ql-stroke" x1="14" x2="4" y1="14" y2="14"></line>
           <line class="ql-stroke" x1="12" x2="6" y1="4" y2="4"></line>
         </svg>
       `,
-      right: `
+      original: `
         <svg viewbox="0 0 18 18">
           <line class="ql-stroke" x1="15" x2="3" y1="9" y2="9"></line>
           <line class="ql-stroke" x1="15" x2="5" y1="14" y2="14"></line>
@@ -119,7 +119,6 @@ const DefaultOptions: Options = {
       addButtonSelectStyle: true,
       buttonStyle: {
         display: "inline-block",
-        width: "24px",
         height: "24px",
         background: "white",
         border: "1px solid #999",
@@ -128,7 +127,6 @@ const DefaultOptions: Options = {
       },
       svgStyle: {
         display: "inline-block",
-        width: "24px",
         height: "24px",
         background: "white",
         border: "1px solid #999",
