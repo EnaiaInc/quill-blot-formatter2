@@ -13,7 +13,7 @@ class ImageResizeAttributor extends ClassAttributor {
   constructor() {
     super("imageResize", "ql-image-resize", {
       scope: Scope.INLINE,
-      whitelist: ["left", "center", "right"],
+      whitelist: ["small", "bestfit", "original"],
     })
   }
 

@@ -1,7 +1,7 @@
 import Quill from "quill"
 import { Toolbar } from "./Toolbar"
-import { Resizer } from "./Align"
-import type { Size } from "./Alignment"
+import { Resizer } from "./Resizer"
+import type { Size } from "./Size"
 import BlotFormatter from "../../BlotFormatter"
 import type { Blot } from "../../specs/BlotSpec"
 import AttributeAction from "../AttributeAction"
@@ -48,12 +48,12 @@ export default class DefaultToolbar implements Toolbar {
       }
     }
 
-    if (formatter.options.resize.toolbar.svgStyle) {
+    if (formatter.options.resize.toolbar.buttonChildStyle) {
       const childElement = button.children[0] as HTMLElement // Type assertion
       if (childElement) {
         Object.assign(
           childElement.style,
-          formatter.options.resize.toolbar.svgStyle,
+          formatter.options.resize.toolbar.buttonChildStyle,
         )
       }
     }
@@ -64,7 +64,7 @@ export default class DefaultToolbar implements Toolbar {
     resizer.getSizes().forEach((size, i) => {
       const button = document.createElement("span")
       button.classList.add(formatter.options.resize.toolbar.buttonClassName)
-      button.innerHTML = size.icon
+      button.innerHTML = size.label
       button.addEventListener("click", () => {
         this.onButtonClick(button, formatter, size, resizer)
       })
@@ -80,7 +80,7 @@ export default class DefaultToolbar implements Toolbar {
       const attributeAction = new AttributeAction(formatter)
       const button = document.createElement("span")
       button.classList.add(formatter.options.resize.toolbar.buttonClassName)
-      button.innerHTML = attributeAction.icon
+      button.innerHTML = attributeAction.label
       button.addEventListener("click", (event) => {
         attributeAction.showAltTitleModal(event)
       })

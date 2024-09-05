@@ -1,4 +1,4 @@
-import { Resizer } from "./Align"
+import { Resizer } from "./Resizer"
 import BlotFormatter from "../../BlotFormatter"
 
 export interface Toolbar {

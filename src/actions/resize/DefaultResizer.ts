@@ -1,41 +1,41 @@
 import Quill from "quill"
-import { Resizer } from "./Align"
-import type { Size } from "./Alignment"
+import { Resizer } from "./Resizer"
+import type { Size } from "./Size"
 import type { Blot } from "../../specs/BlotSpec"
 import type { ResizeOptions } from "../../Options"
-import { ImageResize } from "./AlignFormats"
+import { ImageResize } from "./ResizeFormats"
 
 const parchment = Quill.import("parchment") as any
 const { Scope } = parchment
 
-const LEFT_ALIGN: string = "left"
-const CENTER_ALIGN: string = "center"
-const RIGHT_ALIGN: string = "right"
+const SMALL_SIZE: string = "small"
+const BEST_FIT_SIZE: string = "bestfit"
+const ORIGINAL_SIZE: string = "original"
 
 export default class DefaultResizer implements Resizer {
   sizes: { [key: string]: Size }
 
   constructor(options: ResizeOptions) {
     this.sizes = {
-      [LEFT_ALIGN]: {
-        name: LEFT_ALIGN,
-        icon: options.icons.left,
+      [SMALL_SIZE]: {
+        name: SMALL_SIZE,
+        label: options.labels.small,
         apply: (blot: Blot | null) => {
-          this.setSize(blot, LEFT_ALIGN)
+          this.setSize(blot, SMALL_SIZE)
         },
       },
-      [CENTER_ALIGN]: {
-        name: CENTER_ALIGN,
-        icon: options.icons.center,
+      [BEST_FIT_SIZE]: {
+        name: BEST_FIT_SIZE,
+        label: options.labels.best_fit,
         apply: (blot: Blot | null) => {
-          this.setSize(blot, CENTER_ALIGN)
+          this.setSize(blot, BEST_FIT_SIZE)
         },
       },
-      [RIGHT_ALIGN]: {
-        name: RIGHT_ALIGN,
-        icon: options.icons.right,
+      [ORIGINAL_SIZE]: {
+        name: ORIGINAL_SIZE,
+        label: options.labels.original,
         apply: (blot: Blot | null) => {
-          this.setSize(blot, RIGHT_ALIGN)
+          this.setSize(blot, ORIGINAL_SIZE)
         },
       },
     }
@@ -76,7 +76,9 @@ export default class DefaultResizer implements Resizer {
       if (this.isInlineBlot(blot) || this.hasInlineScope(blot)) {
         // .formats() only returns value on parent for inline class attributers
         const imageSize = blot.parent?.formats()[ImageResize.attrName]?.resize
-        return imageSize === size.name
+        return (
+          imageSize === size.name || (size.name === ORIGINAL_SIZE && !imageSize)
+        )
       }
     }
     return false

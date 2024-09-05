@@ -1,7 +1,7 @@
 import Action from "../Action"
 import BlotFormatter from "../../BlotFormatter"
 import DefaultResizer from "./DefaultResizer"
-import { Resizer } from "./Align"
+import { Resizer } from "./Resizer"
 import { Toolbar } from "./Toolbar"
 import DefaultToolbar from "./DefaultToolbar"
 
