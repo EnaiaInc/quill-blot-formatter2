@@ -85,10 +85,12 @@ export default class AttributeAction extends Action {
                     <h6 style="color: black; margin: 0; padding-bottom: 5px !important;">${this.formatter.options.overlay.labels.alt}</h6>
                     </label>
                     <textarea style="background-color: white; display: block; resize: none; width: 100%; padding: 5px;" name="alt" rows="3"></textarea>
+            <div hidden>
                     <label style="display: block; margin-top: 10px;" for="title">
                     <h6 style="color: black; margin: 0; padding-bottom: 5px !important;">${this.formatter.options.overlay.labels.title}</h6>
                     </label>
                     <textarea style="background-color: white; display: block; resize: none; width: 100%; padding: 5px;" name="title" rows="3"></textarea>
+            </div>
                     <div style="text-resize: right;">
                         <button type="submit" style="margin-top: 5px; font-size: x-large; text-decoration: none; font-weight:bold; color: green; cursor: pointer; background: none; border: 0; padding: 0;">✓</button>
                     </div>
