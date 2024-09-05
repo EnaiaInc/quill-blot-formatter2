@@ -12,13 +12,6 @@ export type OverlayOptions = {
   labels: { [key: string]: any }
 }
 
-export type ResizeOptions = {
-  // class name applied to the resize handles
-  handleClassName: string
-  // style applied to resize handles, or null to prevent styles
-  handleStyle?: { [key: string]: any } | null | undefined
-}
-
 export type AlignOptions = {
   // the name of the attribute for an element that has its alignment changed
   attribute: string
@@ -58,7 +51,6 @@ export type Options = {
   specs: Array<Constructor<BlotSpec>>
   overlay: OverlayOptions
   align: AlignOptions
-  resize: ResizeOptions
   image: ImageOptions
 }
 
@@ -142,18 +134,6 @@ const DefaultOptions: Options = {
         border: "1px solid #999",
         verticalAlign: "middle",
       },
-    },
-  },
-  resize: {
-    handleClassName: "blot-formatter__resize-handle",
-    handleStyle: {
-      position: "absolute",
-      height: "12px",
-      width: "12px",
-      backgroundColor: "white",
-      border: "1px solid #777",
-      boxSizing: "border-box",
-      opacity: "0.80",
     },
   },
   image: {

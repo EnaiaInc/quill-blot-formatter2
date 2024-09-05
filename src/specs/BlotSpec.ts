@@ -1,7 +1,6 @@
 import BlotFormatter from "../BlotFormatter"
 import Action from "../actions/Action"
 import AlignAction from "../actions/align/AlignAction"
-import ResizeAction from "../actions/ResizeAction"
 import DeleteAction from "../actions/DeleteAction"
 
 export interface Blot {
@@ -25,11 +24,7 @@ export default class BlotSpec {
   init(): void {}
 
   getActions(): Array<Action> {
-    return [
-      new AlignAction(this.formatter),
-      new ResizeAction(this.formatter),
-      new DeleteAction(this.formatter),
-    ]
+    return [new AlignAction(this.formatter), new DeleteAction(this.formatter)]
   }
 
   getTargetElement(): HTMLElement | null {
