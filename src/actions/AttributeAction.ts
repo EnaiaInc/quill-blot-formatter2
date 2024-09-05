@@ -53,25 +53,23 @@ export default class AttributeAction extends Action {
       const elements = form.elements as HTMLFormControlsCollection
       const altInput = elements.namedItem("alt") as HTMLTextAreaElement
       const titleInput = elements.namedItem("title") as HTMLTextAreaElement
-
+      const closeModal = () => {
+        modal.remove()
+      }
       altInput.value = targetElement?.getAttribute("alt") || ""
       titleInput.value = targetElement?.getAttribute("title") || ""
       form.addEventListener("submit", (event) => {
         event.preventDefault()
         this.setAltTitle(altInput.value, titleInput.value)
-        modal.remove()
+        closeModal()
       })
-      form.addEventListener("cancel", () => {
-        modal.remove()
-      })
+      form.addEventListener("cancel", closeModal)
       modal.addEventListener("click", (event) => {
         if (event.target === modal) {
-          modal.remove()
+          closeModal()
         }
       })
-      cancelButton?.addEventListener("click", () => {
-        modal.remove()
-      })
+      cancelButton?.addEventListener("click", closeModal)
     }
   }
 
