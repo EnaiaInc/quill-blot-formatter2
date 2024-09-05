@@ -76,7 +76,9 @@ export default class DefaultResizer implements Resizer {
       if (this.isInlineBlot(blot) || this.hasInlineScope(blot)) {
         // .formats() only returns value on parent for inline class attributers
         const imageSize = blot.parent?.formats()[ImageResize.attrName]?.resize
-        return imageSize === size.name
+        return (
+          imageSize === size.name || (size.name === ORIGINAL_SIZE && !imageSize)
+        )
       }
     }
     return false
