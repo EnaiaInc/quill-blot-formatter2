@@ -1,35 +1,37 @@
-import Quill from 'quill';
-import Action from './Action';
-import BlotFormatter from '../BlotFormatter';
+import Quill from "quill"
+import Action from "./Action"
+import BlotFormatter from "../BlotFormatter"
 
 export default class DeleteAction extends Action {
   onCreate() {
-    document.addEventListener('keyup', this.onKeyUp, true);
-    this.formatter.quill.root.addEventListener('input', this.onKeyUp, true);
+    document.addEventListener("keyup", this.onKeyUp, true)
+    this.formatter.quill.root.addEventListener("input", this.onKeyUp, true)
   }
 
   onDestroy() {
-    document.removeEventListener('keyup', this.onKeyUp);
-    this.formatter.quill.root.removeEventListener('input', this.onKeyUp);
+    document.removeEventListener("keyup", this.onKeyUp)
+    this.formatter.quill.root.removeEventListener("input", this.onKeyUp)
   }
 
   onKeyUp = (e: KeyboardEvent) => {
-    const modalOpen: boolean = !!document.querySelector('div[data-blot-formatter-modal]')
+    const modalOpen: boolean = !!document.querySelector(
+      "div[data-blot-formatter-modal]",
+    )
     if (!this.formatter.currentSpec || modalOpen) {
-      return;
+      return
     }
 
     // delete or backspace
-    if (e.code === 'Delete' || e.code === 'Backspace') {
-      const targetElement = this.formatter.currentSpec.getTargetElement();
+    if (e.code === "Delete" || e.code === "Backspace") {
+      const targetElement = this.formatter.currentSpec.getTargetElement()
       if (targetElement) {
-        const blot = Quill.find(targetElement);
+        const blot = Quill.find(targetElement)
         if (blot) {
-          const index = this.formatter.quill.getIndex(blot);
-          this.formatter.quill.deleteText(index, 1); // Deletes 1 character from index position
+          const index = this.formatter.quill.getIndex(blot)
+          this.formatter.quill.deleteText(index, 1) // Deletes 1 character from index position
         }
       }
-      this.formatter.hide();
+      this.formatter.hide()
     }
-  };
+  }
 }

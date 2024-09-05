@@ -1,25 +1,25 @@
-import BlotFormatter from '../BlotFormatter';
-import Action from '../actions/Action';
-import AlignAction from '../actions/align/AlignAction';
-import ResizeAction from '../actions/ResizeAction';
-import DeleteAction from '../actions/DeleteAction';
+import BlotFormatter from "../BlotFormatter"
+import Action from "../actions/Action"
+import AlignAction from "../actions/align/AlignAction"
+import ResizeAction from "../actions/ResizeAction"
+import DeleteAction from "../actions/DeleteAction"
 
 export interface Blot {
-  domNode: HTMLElement;
-  parent: Blot | null;
-  next: Blot | null;
-  prev: Blot | null;
-  statics: any | null;
-  format(name: string, value: any): void | undefined;
-  formats(): { [key: string]: any };
-  length(): number;
+  domNode: HTMLElement
+  parent: Blot | null
+  next: Blot | null
+  prev: Blot | null
+  statics: any | null
+  format(name: string, value: any): void | undefined
+  formats(): { [key: string]: any }
+  length(): number
 }
 
 export default class BlotSpec {
-  formatter: BlotFormatter;
+  formatter: BlotFormatter
 
   constructor(formatter: BlotFormatter) {
-    this.formatter = formatter;
+    this.formatter = formatter
   }
 
   init(): void {}
@@ -28,20 +28,20 @@ export default class BlotSpec {
     return [
       new AlignAction(this.formatter),
       new ResizeAction(this.formatter),
-      new DeleteAction(this.formatter)
-    ];
+      new DeleteAction(this.formatter),
+    ]
   }
 
   getTargetElement(): HTMLElement | null {
-    return null;
+    return null
   }
 
   getOverlayElement(): HTMLElement | null {
-    return this.getTargetElement();
+    return this.getTargetElement()
   }
 
   setSelection(): void {
-    this.formatter.quill.setSelection(null);
+    this.formatter.quill.setSelection(null)
   }
 
   onHide() {}

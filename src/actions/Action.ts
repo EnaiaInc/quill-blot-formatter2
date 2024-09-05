@@ -1,10 +1,10 @@
-import BlotFormatter from '../BlotFormatter';
+import BlotFormatter from "../BlotFormatter"
 
 export default class Action {
-  formatter: BlotFormatter;
+  formatter: BlotFormatter
 
   constructor(formatter: BlotFormatter) {
-    this.formatter = formatter;
+    this.formatter = formatter
   }
 
   onCreate() {}

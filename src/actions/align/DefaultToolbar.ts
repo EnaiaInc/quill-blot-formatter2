@@ -1,89 +1,92 @@
-import Quill from 'quill';
-import { Toolbar } from './Toolbar';
-import { Aligner } from './Aligner';
-import type { Alignment } from './Alignment';
-import BlotFormatter from '../../BlotFormatter';
-import type { Blot } from '../../specs/BlotSpec';
-import AttributeAction from '../AttributeAction';
+import Quill from "quill"
+import { Toolbar } from "./Toolbar"
+import { Aligner } from "./Aligner"
+import type { Alignment } from "./Alignment"
+import BlotFormatter from "../../BlotFormatter"
+import type { Blot } from "../../specs/BlotSpec"
+import AttributeAction from "../AttributeAction"
 
 export default class DefaultToolbar implements Toolbar {
-  toolbar: HTMLElement | null;
-  buttons: HTMLElement[];
+  toolbar: HTMLElement | null
+  buttons: HTMLElement[]
 
   constructor() {
-    this.toolbar = null;
-    this.buttons = [];
+    this.toolbar = null
+    this.buttons = []
   }
 
   create(formatter: BlotFormatter, aligner: Aligner): HTMLElement {
-    const toolbar = document.createElement('div');
-    toolbar.classList.add(formatter.options.align.toolbar.mainClassName);
-    this.addToolbarStyle(formatter, toolbar);
-    this.addButtons(formatter, toolbar, aligner);
+    const toolbar = document.createElement("div")
+    toolbar.classList.add(formatter.options.align.toolbar.mainClassName)
+    this.addToolbarStyle(formatter, toolbar)
+    this.addButtons(formatter, toolbar, aligner)
 
-    this.toolbar = toolbar;
-    return this.toolbar;
+    this.toolbar = toolbar
+    return this.toolbar
   }
 
   destroy() {
-    this.toolbar = null;
-    this.buttons = [];
+    this.toolbar = null
+    this.buttons = []
   }
 
   getElement() {
-    return this.toolbar;
+    return this.toolbar
   }
 
   addToolbarStyle(formatter: BlotFormatter, toolbar: HTMLElement) {
     if (formatter.options.align.toolbar.mainStyle) {
-      Object.assign(toolbar.style, formatter.options.align.toolbar.mainStyle);
+      Object.assign(toolbar.style, formatter.options.align.toolbar.mainStyle)
     }
   }
 
   addButtonStyle(button: HTMLElement, index: number, formatter: BlotFormatter) {
     if (formatter.options.align.toolbar.buttonStyle) {
-      Object.assign(button.style, formatter.options.align.toolbar.buttonStyle);
+      Object.assign(button.style, formatter.options.align.toolbar.buttonStyle)
       if (index > 0) {
-        button.style.borderLeftWidth = '0'; // eslint-disable-line no-param-reassign
+        button.style.borderLeftWidth = "0" // eslint-disable-line no-param-reassign
       }
     }
 
     if (formatter.options.align.toolbar.svgStyle) {
-      const childElement = button.children[0] as HTMLElement; // Type assertion
+      const childElement = button.children[0] as HTMLElement // Type assertion
       if (childElement) {
-        Object.assign(childElement.style, formatter.options.align.toolbar.svgStyle);
+        Object.assign(
+          childElement.style,
+          formatter.options.align.toolbar.svgStyle,
+        )
       }
     }
   }
 
   addButtons(formatter: BlotFormatter, toolbar: HTMLElement, aligner: Aligner) {
-    let align_counter: number = 0;
+    let align_counter: number = 0
     aligner.getAlignments().forEach((alignment, i) => {
-      const button = document.createElement('span');
-      button.classList.add(formatter.options.align.toolbar.buttonClassName);
-      button.innerHTML = alignment.icon;
-      button.addEventListener('click', () => {
-        this.onButtonClick(button, formatter, alignment, aligner);
-      });
-      this.preselectButton(button, alignment, formatter, aligner);
-      this.addButtonStyle(button, i, formatter);
-      this.buttons.push(button);
-      toolbar.appendChild(button);
-      align_counter = i;
-    });
+      const button = document.createElement("span")
+      button.classList.add(formatter.options.align.toolbar.buttonClassName)
+      button.innerHTML = alignment.icon
+      button.addEventListener("click", () => {
+        this.onButtonClick(button, formatter, alignment, aligner)
+      })
+      this.preselectButton(button, alignment, formatter, aligner)
+      this.addButtonStyle(button, i, formatter)
+      this.buttons.push(button)
+      toolbar.appendChild(button)
+      align_counter = i
+    })
     // Add alt/title button if target is image
-    const targetElement = formatter.currentSpec?.getTargetElement();
+    const targetElement = formatter.currentSpec?.getTargetElement()
     if (targetElement?.tagName === "IMG") {
-      const attributeAction = new AttributeAction(formatter);
-      const button = document.createElement('span');
-      button.classList.add(formatter.options.align.toolbar.buttonClassName);
-      button.innerHTML = attributeAction.icon;
-      button.addEventListener('click', (event) => {
-        attributeAction.showAltTitleModal(event);
-      });
-      this.addButtonStyle(button, ++align_counter, formatter);
-      this.buttons.push(button);
-      toolbar.appendChild(button);
+      const attributeAction = new AttributeAction(formatter)
+      const button = document.createElement("span")
+      button.classList.add(formatter.options.align.toolbar.buttonClassName)
+      button.innerHTML = attributeAction.icon
+      button.addEventListener("click", (event) => {
+        attributeAction.showAltTitleModal(event)
+      })
+      this.addButtonStyle(button, ++align_counter, formatter)
+      this.buttons.push(button)
+      toolbar.appendChild(button)
     }
   }
 
@@ -94,17 +97,17 @@ export default class DefaultToolbar implements Toolbar {
     aligner: Aligner,
   ) {
     if (!formatter.currentSpec) {
-      return;
+      return
     }
 
-    const target = formatter.currentSpec.getTargetElement();
+    const target = formatter.currentSpec.getTargetElement()
     if (!target) {
-      return;
+      return
     }
 
-    const blot = Quill.find(target) as Blot | null;
+    const blot = Quill.find(target) as Blot | null
     if (aligner.isAligned(blot, alignment)) {
-      this.selectButton(formatter, button);
+      this.selectButton(formatter, button)
     }
   }
 
@@ -115,15 +118,15 @@ export default class DefaultToolbar implements Toolbar {
     aligner: Aligner,
   ) {
     if (!formatter.currentSpec) {
-      return;
+      return
     }
 
-    const target = formatter.currentSpec.getTargetElement();
+    const target = formatter.currentSpec.getTargetElement()
     if (!target) {
-      return;
+      return
     }
 
-    this.clickButton(button, target, formatter, alignment, aligner);
+    this.clickButton(button, target, formatter, alignment, aligner)
   }
 
   clickButton(
@@ -133,33 +136,35 @@ export default class DefaultToolbar implements Toolbar {
     alignment: Alignment,
     aligner: Aligner,
   ) {
-    this.buttons.forEach((b) => { this.deselectButton(formatter, b); });
-    const blot = Quill.find(alignTarget) as Blot | null;
+    this.buttons.forEach((b) => {
+      this.deselectButton(formatter, b)
+    })
+    const blot = Quill.find(alignTarget) as Blot | null
     if (aligner.isAligned(blot, alignment)) {
       if (formatter.options.align.toolbar.allowDeselect) {
-        aligner.clear(blot);
+        aligner.clear(blot)
       } else {
-        this.selectButton(formatter, button);
+        this.selectButton(formatter, button)
       }
     } else {
-      this.selectButton(formatter, button);
-      alignment.apply(blot);
+      this.selectButton(formatter, button)
+      alignment.apply(blot)
     }
 
-    formatter.update();
+    formatter.update()
   }
 
   selectButton(formatter: BlotFormatter, button: HTMLElement) {
-    button.classList.add('is-selected');
+    button.classList.add("is-selected")
     if (formatter.options.align.toolbar.addButtonSelectStyle) {
-      button.style.setProperty('filter', 'invert(20%)');
+      button.style.setProperty("filter", "invert(20%)")
     }
   }
 
   deselectButton(formatter: BlotFormatter, button: HTMLElement) {
-    button.classList.remove('is-selected');
+    button.classList.remove("is-selected")
     if (formatter.options.align.toolbar.addButtonSelectStyle) {
-      button.style.removeProperty('filter');
+      button.style.removeProperty("filter")
     }
   }
 }

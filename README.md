@@ -34,17 +34,17 @@ npm install --save @enzedonline/quill-blot-formatter2
 Download both from the [dist folder](https://github.com/enzedonline/quill-blot-formatter2) in this repository, or use jsdelivr CDN's:
 
 ```html
-<script 
-  src="https://cdn.jsdelivr.net/npm/@enzedonline/quill-blot-formatter2@2.1/dist/js/quill-blot-formatter2.min.js">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/@enzedonline/quill-blot-formatter2@2.1/dist/js/quill-blot-formatter2.min.js"></script>
 <link
-  rel="stylesheet" 
+  rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/@enzedonline/quill-blot-formatter2@2.1/dist/css/quill-blot-formatter2.css"
->
+/>
 ```
 
 ## Usage
+
 ### As Module
+
 ```js
 import Quill from 'quill';
 
@@ -61,12 +61,16 @@ const quill = new Quill(..., {
 ```
 
 ### Script Tag
+
 `quill-blot-formatter2.min.js` is provided which exports the same modules as `index.js` under the global `QuillBlotFormatter2`.
 
 ```html
 <script src="<quill>"></script>
 <script src="https://cdn.jsdelivr.net/npm/@enzedonline/quill-blot-formatter2@2.1/dist/js/quill-blot-formatter2.min.js"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@enzedonline/quill-blot-formatter2@2.1/dist/css/quill-blot-formatter2.css">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@enzedonline/quill-blot-formatter2@2.1/dist/css/quill-blot-formatter2.css"
+/>
 <script>
   Quill.register('modules/blotFormatter2', QuillBlotFormatter2.default);
   const quill = new Quill(..., {
@@ -80,6 +84,7 @@ const quill = new Quill(..., {
   );
 </script>
 ```
+
 **[Code Pen](https://codepen.io/enzedonline/pen/bGPgqeG)**
 
 ## Alt text and Title Editing
@@ -87,11 +92,12 @@ const quill = new Quill(..., {
 From version 2.1, `alt` and `title` image attributes can be edited from the **`T`** button on the overlay toolbar.
 
 > [!CAUTION]
+>
 > #### :exclamation: IMPORTANT NOTE REGARDING QUILL AND IMAGE TITLES :exclamation:
 >
->At the time of writing, the current version of Quill (v2.0.2) does not natively support storing the title attribute in the image delta. As such, when you reload the editor, the title attribute will be lost. There is a Quill [pull request](https://github.com/slab/quill/pull/4350) to address this. 
-> 
-> This package includes an updated Image blot that addresses this issue. 
+> At the time of writing, the current version of Quill (v2.0.2) does not natively support storing the title attribute in the image delta. As such, when you reload the editor, the title attribute will be lost. There is a Quill [pull request](https://github.com/slab/quill/pull/4350) to address this.
+>
+> This package includes an updated Image blot that addresses this issue.
 
 To use that updated blot, simply include the following in your editor options:
 
@@ -102,7 +108,8 @@ blotFormatter2: {
     }
 },
 ```
-***This is not enabled by default as this can potentially overwrite any custom Image blot you might have in use.***
+
+**_This is not enabled by default as this can potentially overwrite any custom Image blot you might have in use._**
 
 If you use a custom image blot, leave `registerImageTitleBlot` out of your options and be sure to add `title` to supported attributes.
 
@@ -120,19 +127,22 @@ blotFormatter2: {
     },
 },
 ```
+
 ### Using the title as caption
 
-For aligned images (assuming your image blot is inline), the image title is copied into the `data-title` attribute of the wrapping `<span>` tag. 
+For aligned images (assuming your image blot is inline), the image title is copied into the `data-title` attribute of the wrapping `<span>` tag.
 
 ```html
 <span class="ql-image-align-center" data-title="some image title">
-  <img src="https://example.com/media/images/some-image.png" 
-    alt="some alt text" 
-    title="some image title">
+  <img
+    src="https://example.com/media/images/some-image.png"
+    alt="some alt text"
+    title="some image title"
+  />
 </span>
 ```
 
-You can make use of this to display a caption using the [suggested css](#css) below. 
+You can make use of this to display a caption using the [suggested css](#css) below.
 
 > [!NOTE]
 > Using the suggested css, if the title wraps, it will begin to clip the base of the image. This is a limitation of needing to use an absolute position to prevent the caption from growing the span width.
@@ -141,7 +151,7 @@ You can make use of this to display a caption using the [suggested css](#css) be
 
 When loading Quill with Blot Formatter, a transparent image is appended to the document body to mask any iframes in order to capture the click event and prevent default mouse behaviour on that video.
 
-If you use Quill in a modal, you may need to increase the `z-index` on this overlay in order for this to work. 
+If you use Quill in a modal, you may need to increase the `z-index` on this overlay in order for this to work.
 
 ```css
 img.blot-formatter__proxy-image {
@@ -152,9 +162,10 @@ img.blot-formatter__proxy-image {
 ## Alignment and Placing
 
 Alignment and placing is handled by css classes, one set each for image and iframe:
+
 ```css
 .ql-image-align-left, .ql-image-align-center, .ql-image-align-right,
-.ql-iframe-align-left, .ql-iframe-align-center, .ql-iframe-align-right 
+.ql-iframe-align-left, .ql-iframe-align-center, .ql-iframe-align-right
 ```
 
 ## CSS
@@ -162,7 +173,10 @@ Alignment and placing is handled by css classes, one set each for image and ifra
 Suggested css can be found in [src/css/quill-blot-formatter2.css](https://github.com/enzedonline/quill-blot-formatter2/blob/master/src/css/quill-blot-formatter2.css) (shown below). This is also exported to the dist folder and published via npm:
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@enzedonline/quill-blot-formatter2@2.1/dist/css/quill-blot-formatter2.css">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/@enzedonline/quill-blot-formatter2@2.1/dist/css/quill-blot-formatter2.css"
+/>
 ```
 
 **These styles are not loaded automatically**, it is up to you to load the styles relevant to your site.
@@ -171,55 +185,58 @@ Suggested css can be found in [src/css/quill-blot-formatter2.css](https://github
 /* align left */
 div.ql-editor .ql-image-align-left,
 div.ql-editor .ql-iframe-align-left {
-    float: left;
-    margin: 0.5rem 1rem 0.5rem 0;
+  float: left;
+  margin: 0.5rem 1rem 0.5rem 0;
 }
 /* align center */
 div.ql-editor .ql-image-align-center,
 div.ql-editor .ql-iframe-align-center {
-    margin: 0.5rem auto;
-    display: block;
+  margin: 0.5rem auto;
+  display: block;
 }
 div.ql-editor .ql-image-align-center {
-    width: -moz-fit-content;
-    width: fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
 }
 /* align right */
 div.ql-editor .ql-image-align-right,
 div.ql-editor .ql-iframe-align-right {
-    float: right;
-    margin: 0.5rem 0 0.5rem 1rem;
+  float: right;
+  margin: 0.5rem 0 0.5rem 1rem;
 }
 
 /* image caption */
 div.ql-editor [class^="ql-image-align-"][data-title]:not([data-title=""]) {
-    position: relative;
-    margin-bottom: 2rem;
+  position: relative;
+  margin-bottom: 2rem;
 }
-div.ql-editor [class^="ql-image-align-"][data-title]:not([data-title=""])::after {
-    content: attr(data-title);
-    display: block;
-    position: absolute;
-    bottom: -2rem;
-    padding-top: 2px;
-    margin-bottom: 5px;
-    width: -webkit-fill-available;
-    font-size: 0.9rem;
-    background-color: white;
+div.ql-editor
+  [class^="ql-image-align-"][data-title]:not([data-title=""])::after {
+  content: attr(data-title);
+  display: block;
+  position: absolute;
+  bottom: -2rem;
+  padding-top: 2px;
+  margin-bottom: 5px;
+  width: -webkit-fill-available;
+  font-size: 0.9rem;
+  background-color: white;
 }
 div.ql-editor .ql-image-align-left[data-title]:not([data-title=""])::after {
-    text-align: left;
+  text-align: left;
 }
 div.ql-editor .ql-image-align-center[data-title]:not([data-title=""])::after {
-    text-align: center;
+  text-align: center;
 }
 div.ql-editor .ql-image-align-right[data-title]:not([data-title=""])::after {
-    text-align: right;
+  text-align: right;
 }
 ```
+
 ## Scrollable Editors
 
 If your Quill root element is scrollable, any active overlay will scroll with the target element. The overlay element sits in the Quill container element however and will be visible outside of the bounds of your editor unless you set the overflow behaviour for the container to hidden. For example:
+
 ```css
 .ql-editor {
   max-height: 15rem;
@@ -229,10 +246,12 @@ If your Quill root element is scrollable, any active overlay will scroll with th
   overflow: hidden;
 }
 ```
-If it is another element scrolling your editor (other than the document), the overlay may remain in a static position. The module exposes a `repositionOverlay()` method which you can call from your own event listener. 
+
+If it is another element scrolling your editor (other than the document), the overlay may remain in a static position. The module exposes a `repositionOverlay()` method which you can call from your own event listener.
+
 ```javascript
-const bf = quill.getModule('blotFormatter2');
-bf.repositionOverlay();
+const bf = quill.getModule("blotFormatter2")
+bf.repositionOverlay()
 ```
 
 ## Options
@@ -247,10 +266,9 @@ blotFormatter2: {
 },
 ```
 
-> [!IMPORTANT]
-> [See above](#alt-text-and-title-editing) for information regarding setting options for alt and title editing.
+> [!IMPORTANT] > [See above](#alt-text-and-title-editing) for information regarding setting options for alt and title editing.
 
-Using quill module options it's easy to disable existing specs, actions, or to override any of the styles provided by this module. 
+Using quill module options it's easy to disable existing specs, actions, or to override any of the styles provided by this module.
 
 For example: if you wanted to remove resizing, support only images, and change the overlay border the following config would work:
 
@@ -296,47 +314,56 @@ const quill = new Quill(..., {
 <hr>
 
 ## Further Customisations
+
 > [!NOTE]
-> The notes from here on are here only for those who wish to customise the default behaviour and/or work with custom blots. <br>
-> `blotFormatter2` is already compatible with Quill `Image` and `Video` blots, no custom blots or actions need be registered to work with this package.
+> The notes from here on are here only for those who wish to customise the default behaviour and/or work with custom blots. <br> > `blotFormatter2` is already compatible with Quill `Image` and `Video` blots, no custom blots or actions need be registered to work with this package.
 
 ### BlotSpec
 
 The `BlotSpec` ([/src/specs/BlotSpec.ts](https://github.com/enzedonline/quill-blot-formatter2/blob/master/src/specs/BlotSpec.ts)) classes define how `BlotFormatter` interacts with blots. They take the `BlotFormatter` as a constructor arg and have the following functions:
 
 #### `init(): void`
+
 Called after all specs have been constructed. Use this to bind to quill events to determine when to activate a specific spec.
 
 #### `getActions(): Array<Action>`
+
 The [`actions`](#action) that are allowed on this blot. The default is `[AlignAction, ResizeAction, DeleteAction]`.
 
 #### `getTargetElement(): HTMLElement | null`
+
 When the spec is active this should return the element that is to be formatted
 
 #### `getOverlayElement(): HTMLElement | null`
+
 When the spec is active this should return the element to display the formatting overlay. This defaults to `return getTargetElement()` since they will typically be the same element.
 
 #### `setSelection(): void`
+
 After the spec is activated this should set the quill selection using [`setSelection`](https://quilljs.com/docs/api/#setselection). Defaults to `quill.setSelection(null)`.
 
 #### `onHide(): void`
+
 Called when the spec is deactivated by the user clicking away from the blot. Use this to clean up any state in the spec during activation.
 
 #### Notes
+
 Each spec should call `this.formatter.show(this);` to request activation. See `specs/` ([/src/specs](https://github.com/enzedonline/quill-blot-formatter2/tree/master/src/specs)) for the built-in specs.
 
 ### Action
+
 The `Action` ([/src/actions/Action.ts](https://github.com/enzedonline/quill-blot-formatter2/blob/master/src/actions/Action.ts)) classes define the actions available to a blot once its spec is activated. They take the `BlotFormatter` as a constructor arg and have the following functions:
 
 #### `onCreate(): void`
+
 Called immediately after the action is created. Use this to bind quill events and create elements to attach to the overlay.
 
 #### `onUpdate(): void`
+
 Called when the formatter has changed something on the blot. Use this to update any internal state.
 
 #### `onDestroy(): void`
+
 Called when the formatter is hidden by the user.
 
 See `actions` ([/src/actions](https://github.com/enzedonline/quill-blot-formatter2/tree/master/src/actions)) for the existing actions.
-
-
